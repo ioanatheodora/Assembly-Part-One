@@ -5,8 +5,8 @@ aferent formulei ciphertext[i] = plain[i] ^ key[i], key fiind deja inversat,
 cum am mentionat mai sus.
 
 2. Ages
-    Iteram prin vectorul de date, calculand pentru fiecare coechipier al lui
-Biju varsta in felul urmator:
+    Iteram prin vectorul de date, calculand pentru fiecare coechipier varsta in
+felul urmator:
     Se verifica initial daca anul de nastere este mai mare sau egal cu anul
 curent, iar, in acest caz, varsta este direct 0, in caz contrar, se compara
 daca luna nasterii cu luna curenta.
