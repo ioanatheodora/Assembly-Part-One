@@ -1,0 +1,52 @@
+1. Reversed One Time Pad
+    Am inversat vectorul in care se tinea cheia, folosind stiva, pentru ca
+ulterior sa adaug in registrul edx, corespunzator ciphertext, byte cu byte
+aferent formulei ciphertext[i] = plain[i] ^ key[i], key fiind deja inversat,
+cum am mentionat mai sus.
+
+2. Ages
+    Iteram prin vectorul de date, calculand pentru fiecare coechipier al lui
+Biju varsta in felul urmator:
+    Se verifica initial daca anul de nastere este mai mare sau egal cu anul
+curent, iar, in acest caz, varsta este direct 0, in caz contrar, se compara
+daca luna nasterii cu luna curenta.
+    In cazul in care luna nasterii este mai mare decat luna curenta, varsta
+este egala cu anul_curent - anul_nasterii - 1.
+    Daca luna nasterii este mai mica decat luna curenta, varsta este egala
+cu anul_curent - anul_nasterii, caci a implinit deja varsta respectiva.
+    Ramane situatia in care luna nasterii este egala cu luna curenta, motiv 
+pentru care comparam ziua de nastere cu ziua curenta. 
+    Ca in cazul lunilor, daca ziua nasterii este mai mare, varsta este egala cu
+anul_curent - anul_nasterii - 1.
+    De data aceasta, daca ziua nasterii este mai mica sau egala decat ziua 
+curenta, varsta este anul_curent - anul_nasterii - 1.
+    Dupa ce calculam varsta, o punem in registrul ecx aferent tuturor varstelor
+pe pozitia potrivita si trecem la urmatorul coechipier.
+
+3. Columnar Transposition Cipher
+    Construim textul codat prin a adauga treptat pe fiecare pozitie caracterul
+corect. 
+
+    Vom adauga in vectorul de output elemente dupa urmatoare formula:
+    ciphertext[index] = len_cheie * (index % number_of_columns) 
+                        + key[index / number_of_columns]
+
+len_cheie * (index % number_of_columns) - gasim linia potrivita
+key[index / number_of_columns] - gasim coloana potrivita
+
+    Astfel, se foloseste registrul ecx drept contor pentru a adauga in
+textul codat, determinat prin registrul ebx. La fiecare pas, pe acestea le
+incrementam pe ambele doar daca s-a gasit un caracter eligibil pentru a fi
+adaugat, adica daca positia calculata este mai mare ca lungimea lui plaintext.
+In cel de-al doilea caz, incrementam doar contorul.
+
+4. Cache Load Simulation
+    Calculam de la inceput tag-ul si offset-ul adresei primite, pe care le
+stocam in doua variabile. Se cauta tag-ul in tags, iterand prin liniile
+matricii, iar daca este gasit(CACHE_HIT), se muta in registru(eax) 
+elementul de pe pozitia cache[linia_la_care_a_fost_gasit_tag-ul][offset].
+    Daca nu a fost gasit tag-ul la pasul anterior(CACHE_MISS), cautam pozitia
+corecta si se adauga cei opt octeti din memorie. Dupa ce s-au adaugat acestia,
+tag-ul este introdus in matricea tag-urilor si scriem registrul din cache 
+astfel: registru = cache[to_replace][offset].
+
